@@ -1,0 +1,7 @@
+
+.wrapper
+{
+    padding-top: 4rem;
+    width: 100%;
+    height: calc(100% - 4rem);
+}
