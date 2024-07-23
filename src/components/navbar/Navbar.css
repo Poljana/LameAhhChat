@@ -46,3 +46,52 @@ nav ul li:nth-child(2):hover
     background: #151515;
     cursor: pointer;
 }
+
+.signoutbtn
+{
+    height: 4rem;
+    width: fit-content;
+    padding-inline: 1rem;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.signoutbtn:hover
+{
+    background: #3f00001b;
+    color: #c6c6c6;
+}
+
+.noPadding
+{
+    padding: 0;
+}
+
+#alert
+{
+    width: calc(100% - 4rem);
+    height: 4rem;
+    padding-inline: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    background: #eb47001c;
+}
+
+#closebtn
+{
+    width: 2rem;
+    height: 2rem;
+    font-size: 30px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+#closebtn:hover
+{
+    filter: invert(0.3);
+}
