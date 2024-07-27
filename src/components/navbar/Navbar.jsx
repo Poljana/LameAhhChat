@@ -3,21 +3,46 @@ import './Navbar.css'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Alert } from 'react-bootstrap'
-import { auth } from '../../firebase'
+import { auth, db } from '../../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 import { IoIosClose } from "react-icons/io";
+import { doc, getDoc } from 'firebase/firestore'
 
-function Navbar() {
+function Navbar({ userId }) {
     const [showAlert, setShowAlert] = useState(false)
     const [user, setUser] = useState(null)
+    const [userData, setUserData] = useState(null)
 
     useEffect(() => {
         // Listener for authentication state changes
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser); // Set user based on sign-in status
-        });
-        return unsubscribe; // Cleanup subscription on unmount
+            setUser(currentUser)
+        })
+        return unsubscribe
     }, [])
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const docRef = doc(db, 'users', userId)
+                const docSnap = await getDoc(docRef)
+
+                if(docSnap.exists()) {
+                    setUserData(docSnap.data())
+                } else {
+                    console.log("No such document exists")
+                }
+            } catch (error) {
+                const errorCode = error.code
+                const errorMessage = error.message
+                console.error("Error code: ", errorCode, "Error message: ", errorMessage)
+            }
+        }
+
+        if(userId) {
+            fetchUserData()
+        }
+    }, [userId])
 
     const onClickHandler = () => {
         setShowAlert(!showAlert)
@@ -42,6 +67,12 @@ function Navbar() {
                 <li><Link to="home">Lame A$$ Chat</Link></li>
                 {user ? (
                         <li className='noPadding'>
+                            <button
+                                type='button'
+                                id='profilebtn'
+                            >
+                                { userData ? userData.username : "No profile" }
+                            </button>
                             <button 
                                 type='button' 
                                 onClick={onClickHandler}
@@ -51,7 +82,7 @@ function Navbar() {
                             </button>
                         </li>
                 ) : (
-                    <li><Link to="signin">Sign In</Link></li>
+                    <li><Link to="signin" id='signinbtn'>Sign In</Link></li>
                 )}
             </ul>
             <Alert 

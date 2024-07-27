@@ -41,10 +41,21 @@ nav ul li:nth-child(1)
     font-size: 23px;
 }
 
-nav ul li:nth-child(2):hover
+#signinbtn
 {
-    background: #151515;
+    height: 4rem;
+    padding-inline: 1rem;
+    font-size: 21px;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+#signinbtn:hover
+{
     cursor: pointer;
+    background: #151515;
 }
 
 .signoutbtn
@@ -94,4 +105,20 @@ nav ul li:nth-child(2):hover
 #closebtn:hover
 {
     filter: invert(0.3);
+}
+
+#profilebtn
+{
+    height: 4rem;
+    padding-inline: 1rem;
+    border: none;
+    background: transparent;
+    font-size: 21px;
+    color: #d900ff;
+}
+
+#profilebtn:hover
+{
+    cursor: pointer;
+    background: #151515;
 }

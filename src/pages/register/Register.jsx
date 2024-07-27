@@ -1,33 +1,59 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import './Register.css'
 import { Link, useNavigate } from 'react-router-dom'
-import { auth } from '../../firebase'
+import { auth, db } from '../../firebase'
+import { useState } from 'react'
+import { setDoc, doc } from 'firebase/firestore'
 
 function Register() {
     const navigate = useNavigate()
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    const register = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault()
 
-        const username = document.getElementById("username").value
-        const email = document.getElementById("email").value
-        const password = document.getElementById("password").value
-        createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredentials) => {
-            navigate("/signin")
-        })
-        .catch((error) => {
+        try {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+            const user = userCredential.user
+
+            await setDoc(doc(db, 'users', user.uid), {
+                username: username,
+                email: email,
+                uid: user.uid
+            })
+
+            navigate('/home')
+        } catch (error) {
             const errorCode = error.code
             const errorMessage = error.errorMessage
             console.error("Error code:", errorCode, "Error message:", errorMessage)
-        })         
-    }
-
-    return (
-        <form className='registerform' onSubmit={register}>
-            <input type="text" placeholder='Username' id='username' />
-            <input type="text" placeholder='Email' id='email' />
-            <input type="password" placeholder='Password' id='password' />
+        }}  
+        
+        return (
+        <form className='registerform' onSubmit={handleRegister}>
+            <input
+                type='text'
+                placeholder='Username'
+                value={username}
+                onChange={(e) => {setUsername(e.target.value)}}
+                required
+            />
+            <input
+                type='email'
+                placeholder='Email'
+                value={email}
+                onChange={(e) => {setEmail(e.target.value)}}
+                required
+            />
+            <input
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={(e) => {setPassword(e.target.value)}}
+                required
+            />
             <button type='submit'>Register</button>
             <div className='hasAccount'>
                 <span>Already have an account?</span>
@@ -35,6 +61,6 @@ function Register() {
             </div>
         </form>
     )
-}
+    }
 
 export default Register

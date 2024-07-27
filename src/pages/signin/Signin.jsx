@@ -6,7 +6,7 @@ import { auth } from '../../firebase'
 function SignIn() {
     const navigate = useNavigate()
 
-    const login = (e) => {
+    const handleLogin = (e) => {
         e.preventDefault()
 
         const email = document.getElementById("email").value
@@ -25,7 +25,7 @@ function SignIn() {
     }
 
     return (
-        <form className='signinform' method='get' onSubmit={login}>
+        <form className='signinform' method='get' onSubmit={handleLogin}>
             <input type="text" placeholder='Email' id='email' />
             <input type="password" placeholder='Password' id='password' />
             <button type='submit'>Sign In</button>
