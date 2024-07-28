@@ -91,7 +91,12 @@ function Navbar({ userId }) {
                 show={showAlert}
                 id='alert'
             >
-                <button onClick={onClickHandler} id='closebtn'><IoIosClose /></button>
+                <button 
+                    onClick={onClickHandler} 
+                    id='closebtn'
+                >
+                    <IoIosClose />
+                </button>
                 Are you sure you want to sign out?
                 <button 
                     onClick={() => 
