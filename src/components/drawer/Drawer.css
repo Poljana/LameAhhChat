@@ -1,0 +1,29 @@
+
+#mainDrawer
+{
+    position: fixed;
+    left: 0;
+    top: 4rem;
+    width: 10rem;
+    height: calc(100% - 4rem);
+    background: #181818;
+    padding-block: 2rem;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 100%;
+}
+
+.drawerLink
+{
+    width: 100%;
+    height: 3.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.drawerLink:hover
+{
+    background: #141414;
+}

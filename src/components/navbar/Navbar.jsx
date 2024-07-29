@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { Alert } from 'react-bootstrap'
 import { auth, db } from '../../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { IoIosClose } from "react-icons/io";
+import { IoIosClose, IoIosMenu } from "react-icons/io";
 import { doc, getDoc } from 'firebase/firestore'
 
 function Navbar({ userId }) {
@@ -61,10 +61,21 @@ function Navbar({ userId }) {
         })
     }
 
+    const handleDrawer = () => {
+        
+    }
+
     return (
         <nav>
             <ul>
-                <li><Link to="home">Lame A$$ Chat</Link></li>
+                <li>
+                    <button id='toggleDrawer'>
+                        <IoIosMenu />
+                    </button>
+                    <Link to="home">
+                        Lame A$$ Chat
+                    </Link>                    
+                </li>
                 {user ? (
                         <li className='noPadding'>
                             <button

@@ -1,0 +1,76 @@
+.generalChat
+{
+    width: 50%;
+    height: calc(100% - 8rem);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-block: 2rem;
+}
+
+.messageArea
+{
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#messageInputField
+{
+    width: calc(100% - 3rem);
+    height: 4rem;
+    background-color: #373737;
+    border: none;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+    resize: none;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 0.5rem;
+    overflow: auto; 
+    white-space: pre-wrap;
+}
+
+#messageInputField::-webkit-scrollbar
+{
+    width: 0.3rem;
+    background: transparent;
+}
+
+#messageInputField::-webkit-scrollbar-thumb
+{
+    width: 100%;
+    background: #202020;
+    border-radius: 0.15rem;
+}
+
+.sendButton
+{
+    height: 3rem;
+    width: 3rem;
+    padding-block: 2.5rem;
+    background: #373737;
+    border: none;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+
+.sendButton:hover
+{
+    cursor: pointer;
+    background-color: #292929;
+}
+
+.chatField
+{
+    width: 100%;
+    height: calc(100% - 5rem);
+}

@@ -14,8 +14,8 @@ nav ul
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-inline: 3rem;
-    width: calc(100% - 6rem);
+    padding-inline: 1rem;
+    width: calc(100% - 2rem);
     height: 100%;
 }
 
@@ -39,6 +39,8 @@ nav ul li Link
 nav ul li:nth-child(1) 
 {
     font-size: 23px;
+    display: flex;
+    gap: 2rem;
 }
 
 #signinbtn
@@ -118,6 +120,24 @@ nav ul li:nth-child(1)
 }
 
 #profilebtn:hover
+{
+    cursor: pointer;
+    background: #151515;
+}
+
+#toggleDrawer
+{
+    width: 4rem;
+    height: 4rem;
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#toggleDrawer:hover
 {
     cursor: pointer;
     background: #151515;
