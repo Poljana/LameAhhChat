@@ -1,6 +1,6 @@
 import { signOut } from 'firebase/auth'
 import './Navbar.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { Alert } from 'react-bootstrap'
 import { auth, db } from '../../firebase'
@@ -12,9 +12,9 @@ function Navbar({ userId }) {
     const [showAlert, setShowAlert] = useState(false)
     const [user, setUser] = useState(null)
     const [userData, setUserData] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
-        // Listener for authentication state changes
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
         })
@@ -52,17 +52,13 @@ function Navbar({ userId }) {
         signOut(auth)
         .then(() => {
             console.log("User signed out successfully.")
-            
+            navigate('/home')
         })
         .catch((error) => {
             const errorCode = error.code 
             const errorMessage = error.message 
             console.error("Error code: ", errorCode, "Error message: ", errorMessage)
         })
-    }
-
-    const handleDrawer = () => {
-        
     }
 
     return (

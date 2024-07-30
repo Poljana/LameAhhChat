@@ -1,9 +1,12 @@
 import { Link } from 'react-router-dom'
 import './Drawer.css'
 import { useEffect, useState } from 'react'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../../firebase'
 
 function Drawer() {
     const [displayFlex, setDisplayFlex] = useState(false)
+    const [user, setUser] = useState(false)
 
     const handleDrawer = () => {
         setDisplayFlex(prevState => !prevState)
@@ -15,7 +18,13 @@ function Drawer() {
             toggleButton.onclick = handleDrawer
         }
     }, [])
-    
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser)
+        })
+        return unsubscribe
+    }, [])
 
     return (
         <aside 
@@ -26,7 +35,7 @@ function Drawer() {
             }                               
         >
             <Link 
-                to="chats/general" 
+                to={user ? "chats/general" : "signin"} 
                 className='drawerLink'
                 onClick={ handleDrawer }
             >

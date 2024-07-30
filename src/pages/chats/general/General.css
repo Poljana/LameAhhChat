@@ -1,12 +1,15 @@
 .generalChat
 {
     width: 50%;
-    height: calc(100% - 8rem);
+    height: calc(100% - 15rem);
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
     padding-block: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
 }
 
 .messageArea
@@ -33,6 +36,7 @@
     padding: 0.5rem;
     overflow: auto; 
     white-space: pre-wrap;
+    font-size: 18px;
 }
 
 #messageInputField::-webkit-scrollbar
@@ -73,4 +77,36 @@
 {
     width: 100%;
     height: calc(100% - 5rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: end;
+}
+
+.messages
+{
+    padding: 0.5rem;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    background: #313131;
+    margin-bottom: 0.2rem;
+    border-radius: 0.25rem;
+    border-bottom-right-radius: 0;
+    font-size: 15px;
+}
+
+.deleteButton
+{
+    width: 1.5rem;
+    height: 1.5rem;
+    background: transparent;
+    margin-left: 0.5rem;
+    border: none;
+    font-size: 20px;
+}
+
+.deleteButton:hover
+{
+    cursor: pointer;
 }
