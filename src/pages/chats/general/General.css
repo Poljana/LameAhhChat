@@ -87,13 +87,39 @@
 {
     padding: 0.5rem;
     display: flex;
+    flex-direction: column;
     justify-content: start;
     align-items: start;
-    background: #313131;
-    margin-bottom: 0.2rem;
-    border-radius: 0.25rem;
-    border-bottom-right-radius: 0;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
     font-size: 15px;
+    max-width: 60%;
+}
+
+.message
+{
+    display: flex;
+    align-items: center; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    width: 100%;
+}
+
+.message-right {
+    text-align: right;
+    background-color: #313131; /* Light green background for own messages */
+    margin-left: auto;
+    border-radius: 0.3rem;
+    border-bottom-right-radius: 0;
+}
+
+.message-left {
+    text-align: left;
+    background-color: #8e8e8e; /* White background for others' messages */
+    margin-right: auto;
+    border-radius: 0.3rem;
+    border-bottom-left-radius: 0;
 }
 
 .deleteButton
@@ -101,7 +127,6 @@
     width: 1.5rem;
     height: 1.5rem;
     background: transparent;
-    margin-left: 0.5rem;
     border: none;
     font-size: 20px;
 }
