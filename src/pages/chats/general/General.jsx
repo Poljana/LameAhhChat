@@ -96,9 +96,9 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName }) => {
             <div className={`messages ${messages[0].sentBy === currentUserId ? 'message-right' : 'message-left'}`}>
                 {messages.map(doc => (
                     <div key={doc.id} className="message">
-                        <p className="message-content">
-                            {doc.content}
-                        </p>
+                        <div className="message-content">
+                            <p>{doc.content}</p>
+                        </div>
                         {doc.sentBy === currentUserId && (
                             <button onClick={() => handleDelete(doc.id)} className='deleteButton'>
                                 <IoIosTrash />

@@ -74,12 +74,14 @@ function Navbar({ userId }) {
                 </li>
                 {user ? (
                         <li className='noPadding'>
-                            <button
-                                type='button'
-                                id='profilebtn'
-                            >
-                                { userData ? userData.username : "No profile" }
-                            </button>
+                            <Link to="profile">
+                                <button
+                                    type='button'
+                                    id='profilebtn'
+                                >
+                                    { userData ? userData.username : "No profile" }
+                                </button>
+                            </Link>                            
                             <button 
                                 type='button' 
                                 onClick={onClickHandler}
