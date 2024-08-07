@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import './Profile.css'
 import { doc, getDoc, updateDoc } from 'firebase/firestore'
-import { db } from '../../firebase'
+import { auth, db } from '../../firebase'
+import { updateEmail } from 'firebase/auth'
+import { getStorage, uploadBytes, ref, getDownloadURL } from 'firebase/storage'
 
 function Profile({ userId }) {
     const [userData, setUserData] = useState('')
@@ -9,6 +11,7 @@ function Profile({ userId }) {
     const [newUsername, setNewUsername] = useState('')
     const [editEmail, setEditEmail] = useState(false)
     const [newEmail, setNewEmail] = useState('')
+    const [selectedFile, setSelectedFile] = useState(null)
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -35,6 +38,10 @@ function Profile({ userId }) {
         setEditUsername(!editUsername)
     }
 
+    const handleEmail = () => {
+        setEditEmail(!editEmail)
+    }
+
     const handleUsernameEdit = async (e) => {
         e.preventDefault()
         
@@ -51,7 +58,56 @@ function Profile({ userId }) {
     }
 
     const handleEmailEdit = async (e) => {
+        e.preventDefault()
         
+        try {
+            const user = auth.currentUser
+
+            if (user) {
+                await updateEmail(user, newEmail)
+                const docRef = doc(db, "users", userId)
+                await updateDoc(docRef, {
+                    email: newEmail
+                })
+                setUserData(prevData => ({ ...prevData, email: newEmail }))
+                setEditEmail(false)
+            } else {
+                console.error("No authenticated user found.")
+            }
+        } catch (error) {
+            console.error("Error updating document: ", error)
+        }
+    }
+
+    const handleImageUpload = async (file) => {
+        const storage = getStorage()
+        const storageRef = ref(storage, `images/${file.name}`)
+
+        try {
+            await uploadBytes(storageRef, file)
+
+            const downloadURL = await getDownloadURL(storageRef)
+
+            const docRef = doc(db, 'users', userId)
+            await updateDoc(docRef, {
+                profilePicture: downloadURL
+            })
+            setUserData(prevData => ({ ...prevData, profilePicture: downloadURL}))
+
+            console.log("Image uploaded and URL stored in Firestore: ", downloadURL)
+        } catch (error) {
+            console.error("Error uploading image:", error)
+        }
+    }
+
+    const handleFileChange = (e) => {
+        setSelectedFile(e.target.files[0])
+    }
+
+    const handleUpload = () => {
+        if (selectedFile) {
+            handleImageUpload(selectedFile)
+        }
     }
 
     return (
@@ -78,6 +134,7 @@ function Profile({ userId }) {
                         {editUsername ? "Cancel" : "Edit"}
                     </button>                
             </div>
+
             <div className='email'>
                 {
                     editEmail ?
@@ -98,6 +155,23 @@ function Profile({ userId }) {
                     >
                         {editEmail ? "Cancel" : "Edit"}
                     </button>                
+            </div>
+
+            <div className='profileImage'>
+                <div className='stack'>
+                    {
+                        userData.profilePicture ?
+                        <img src={userData.profilePicture} className='pfp' /> :
+                        <img src='src\assets\defaultPFP.jpg' className='pfp' />
+                    }
+                    <input type='file' onChange={handleFileChange} />
+                </div>
+                <button 
+                    onClick={handleUpload}
+                    className='editbtn'
+                >
+                    Upload Image
+                </button>
             </div>
         </div>
     )

@@ -94,6 +94,7 @@
     margin-bottom: 0.5rem;
     font-size: 15px;
     max-width: 60%;
+    position: relative;
 }
 
 .message
@@ -139,4 +140,24 @@
 .deleteButton:hover
 {
     cursor: pointer;
+}
+
+.chatpfp
+{
+    width: 2rem;
+    border-radius: 1rem;
+    position: absolute;
+    display: flex;
+}
+
+.pfp-right
+{
+    right: -2.5rem;
+    bottom: 0;
+}
+
+.pfp-left
+{
+    left: -2.5rem;
+    bottom: 0;
 }

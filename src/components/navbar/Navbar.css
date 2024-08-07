@@ -116,7 +116,14 @@ nav ul li:nth-child(1)
     border: none;
     background: transparent;
     font-size: 21px;
-    color: #d900ff;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#profilebtn p
+{
+    color: #28a745;
 }
 
 #profilebtn:hover
@@ -141,4 +148,10 @@ nav ul li:nth-child(1)
 {
     cursor: pointer;
     background: #151515;
+}
+
+.navpfp
+{
+    width: 2.5rem;
+    border-radius: 1.25rem;
 }

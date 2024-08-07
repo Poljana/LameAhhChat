@@ -41,6 +41,7 @@ function App() {
                             outerCollectionName='chats'
                             outerDocId='general' 
                             nestedCollectionName='messages' 
+                            userId={currentUserId}
                           />} 
           />
         </Routes>

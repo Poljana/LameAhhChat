@@ -2,16 +2,40 @@ import './General.css'
 import { useEffect, useState } from 'react';
 import { doc, addDoc, collection,
          deleteDoc, getDocs, Timestamp,
-          query, orderBy } from 'firebase/firestore';
+          query, orderBy, 
+          getDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { IoMdSend, IoIosTrash } from "react-icons/io";
 import { onAuthStateChanged } from 'firebase/auth';
 
 
-const General = ({ outerCollectionName, outerDocId, nestedCollectionName }) => {
+const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId }) => {
+    const [userData, setUserData] = useState('')
     const [nestedDocuments, setNestedDocuments] = useState([]);
     const [message, setMessage] = useState('')
     const [currentUserId, setCurrentUserId] = useState('')
+    const [profilePictures, setProfilePictures] = useState({})
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const docRef = doc(db, "users", userId)
+                const docSnap = await getDoc(docRef)
+
+                if (docSnap.exists()) {
+                    setUserData(docSnap.data())
+                } else {
+                    console.error("No such document exists.")
+                }
+            } catch (error) {
+                console.error("Error finding document: ", error)
+            }    
+        }
+
+        if (userId) {
+            fetchUserData()
+        }
+    }, [userId])
 
     const fetchNestedCollection = async () => {
         try {
@@ -20,6 +44,17 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName }) => {
             const querySnapshot = await getDocs(q);
             const docsData = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             setNestedDocuments(docsData);
+
+            const userIds = [...new Set(docsData.map(doc => doc.sentBy))];
+            const profilePictures = {};
+            for (const id of userIds) {
+                const userDocRef = doc(db, "users", id);
+                const userDocSnap = await getDoc(userDocRef);
+                if (userDocSnap.exists()) {
+                    profilePictures[id] = userDocSnap.data().profilePicture;
+                }
+            }
+            setProfilePictures(profilePictures);
         } catch (error) {
             console.error("Error fetching nested collection: ", error);
         }
@@ -98,7 +133,11 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName }) => {
                     <div key={doc.id} className="message">
                         <div className="message-content">
                             <p>{doc.content}</p>
-                        </div>
+                        </div>                
+                        <img
+                            src={profilePictures[message.sentBy]}
+                            className={`chatpfp ${messages[0].sentBy === currentUserId ? 'pfp-right' : 'pfp-left'}`}
+                        />
                         {doc.sentBy === currentUserId && (
                             <button onClick={() => handleDelete(doc.id)} className='deleteButton'>
                                 <IoIosTrash />
@@ -106,6 +145,7 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName }) => {
                         )}
                     </div>
                 ))}
+
             </div>
         );
     };
@@ -114,7 +154,7 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName }) => {
         <div className='generalChat'>
             <div className='chatField'>
                 {groupedMessages.map((group, index) => (
-                    <MessageGroup key={index} messages={group} currentUserId={currentUserId} />
+                        <MessageGroup key={index} messages={group} currentUserId={currentUserId} />
                 ))}
             </div>
             <form className='messageArea' onSubmit={handleSubmit}>

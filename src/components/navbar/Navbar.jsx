@@ -12,6 +12,7 @@ function Navbar({ userId }) {
     const [showAlert, setShowAlert] = useState(false)
     const [user, setUser] = useState(null)
     const [userData, setUserData] = useState(null)
+    const [profilePicture, setProfilePicture] = useState(null)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -29,6 +30,7 @@ function Navbar({ userId }) {
 
                 if(docSnap.exists()) {
                     setUserData(docSnap.data())
+                    setProfilePicture(docSnap.data().profilePicture)
                 } else {
                     console.log("No such document exists")
                 }
@@ -79,7 +81,21 @@ function Navbar({ userId }) {
                                     type='button'
                                     id='profilebtn'
                                 >
-                                    { userData ? userData.username : "No profile" }
+                                    { 
+                                        userData ?
+                                        <>
+                                            <p>{userData.username}</p>
+                                            <img 
+                                                src={
+                                                    profilePicture ?
+                                                    profilePicture :
+                                                    "src\\assets\\defaultPFP.jpg"
+                                                    } 
+                                                className='navpfp' 
+                                            />
+                                        </> : 
+                                        "No profile" 
+                                    }
                                 </button>
                             </Link>                            
                             <button 

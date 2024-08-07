@@ -10,6 +10,7 @@ function Register() {
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const defaultPFP = "C:\Users\Pavin\OneDrive\Radna površina\I\LACH\src\assets\defaultPFP.jpg"
 
     const handleRegister = async (e) => {
         e.preventDefault()
@@ -21,7 +22,8 @@ function Register() {
             await setDoc(doc(db, 'users', user.uid), {
                 username: username,
                 email: email,
-                uid: user.uid
+                uid: user.uid,
+                profilePicture: defaultPFP
             })
 
             navigate('/home')
