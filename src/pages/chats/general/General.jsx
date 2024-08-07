@@ -135,7 +135,7 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
                             <p>{doc.content}</p>
                         </div>                
                         <img
-                            src={profilePictures[message.sentBy]}
+                            src={profilePictures[doc.sentBy]}
                             className={`chatpfp ${messages[0].sentBy === currentUserId ? 'pfp-right' : 'pfp-left'}`}
                         />
                         {doc.sentBy === currentUserId && (

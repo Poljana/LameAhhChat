@@ -67,6 +67,8 @@
 {
     width: 10rem;
     border-radius: 5rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .stack
@@ -85,7 +87,8 @@
     padding-inline: 1rem;
     padding-block: 0.5rem;
     border: none;
-    background: transparent;
+    border-radius: 0.25rem;
+    background: #28a745;
     cursor: pointer;
 }
 

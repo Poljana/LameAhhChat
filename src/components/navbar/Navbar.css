@@ -154,4 +154,6 @@ nav ul li:nth-child(1)
 {
     width: 2.5rem;
     border-radius: 1.25rem;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }

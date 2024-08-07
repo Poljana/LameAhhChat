@@ -57,7 +57,7 @@
     height: 3rem;
     width: 3rem;
     padding-block: 2.5rem;
-    background: #373737;
+    background: #28a745;
     border: none;
     border-top-right-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
@@ -122,7 +122,7 @@
 
 .message-left {
     text-align: left;
-    background-color: #8e8e8e; /* White background for others' messages */
+    background-color: #28a745; /* White background for others' messages */
     margin-right: auto;
     border-radius: 0.3rem;
     border-bottom-left-radius: 0;
@@ -147,7 +147,8 @@
     width: 2rem;
     border-radius: 1rem;
     position: absolute;
-    display: flex;
+    aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .pfp-right
