@@ -7,6 +7,7 @@ import { doc, addDoc, collection,
 import { auth, db } from '../../../firebase';
 import { IoMdSend, IoIosTrash } from "react-icons/io";
 import { onAuthStateChanged } from 'firebase/auth';
+import { format } from 'date-fns';
 
 
 const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId }) => {
@@ -133,7 +134,7 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
                     <div key={doc.id} className="message">
                         <div className="message-content">
                             <p>{doc.content}</p>
-                        </div>                
+                        </div>  
                         <img
                             src={profilePictures[doc.sentBy]}
                             className={`chatpfp ${messages[0].sentBy === currentUserId ? 'pfp-right' : 'pfp-left'}`}
@@ -145,7 +146,6 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
                         )}
                     </div>
                 ))}
-
             </div>
         );
     };

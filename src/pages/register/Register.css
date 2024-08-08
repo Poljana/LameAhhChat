@@ -30,13 +30,13 @@
     height: 3rem;
     border-radius: 0.5rem;
     border: none;
-    background-color: #3f3f3f;
+    background-color: #28a745;
     font-size: 120%;
 }
 
 .registerform button:hover
 {
-    background-color: #5a5a5a;
+    background-color: #404040;
     cursor: pointer;
 }
 
