@@ -52,6 +52,7 @@ function Profile({ userId }) {
             })
             setUserData(prevData => ({ ...prevData, username: newUsername }))
             setEditUsername(false)
+            window.location.reload()
         } catch (error) {
             console.error("Error updating document: ", error)
         }
@@ -95,6 +96,7 @@ function Profile({ userId }) {
             setUserData(prevData => ({ ...prevData, profilePicture: downloadURL}))
 
             console.log("Image uploaded and URL stored in Firestore: ", downloadURL)
+            window.location.reload()
         } catch (error) {
             console.error("Error uploading image:", error)
         }

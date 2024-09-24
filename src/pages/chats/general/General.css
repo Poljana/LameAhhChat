@@ -1,12 +1,12 @@
 .generalChat
 {
-    width: 50%;
-    height: calc(100% - 15rem);
+    width: 100%;
+    height: calc(100% - 10rem);
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    padding-block: 2rem;
+    padding-bottom: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: end;
@@ -14,7 +14,8 @@
 
 .messageArea
 {
-    width: 100%;
+    width: 50%;
+    padding-inline: 25%;
     height: 6rem;
     display: flex;
     justify-content: center;
@@ -75,12 +76,33 @@
 
 .chatField
 {
-    width: 100%;
+    width: 50%;
     height: calc(100% - 5rem);
+    padding-inline: 25%;
     display: flex;
     flex-direction: column;
-    justify-content: end;
     align-items: end;
+    overflow-x: visible;
+    overflow-y: scroll;
+}
+
+.chatField::-webkit-scrollbar
+{
+    width: 0.75rem;
+    background: #252525;
+}
+
+.chatField::-webkit-scrollbar-thumb
+{
+    width: 100%;
+    border-radius: 0.4rem;
+    background-color: #303030;
+}
+
+.chatField::-webkit-scrollbar-button
+{
+    height: 0.5rem;
+    background-color: #272727;
 }
 
 .messages
@@ -99,7 +121,7 @@
 .message
 {
     display: flex;
-    align-items: center;
+    align-items: end;
     gap: 0.3rem;
     word-break: break-word;
     white-space: pre-wrap;
@@ -146,6 +168,41 @@
 .deleteButton:hover
 {
     cursor: pointer;
+}
+
+.more-options
+{
+    width: 1.5rem;
+    height: 1.5rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.75rem;
+    font-size: 20px;
+}
+
+.more-options:hover
+{
+    cursor: pointer;
+    background-color: #292929;
+}
+
+.delete-popup
+{
+    width: 10rem;
+    position: absolute;
+    right: -15rem;
+    background: #28a745;
+    padding: 1rem;    
+}
+
+.popupVisible
+{
+    display: flex;
+}
+
+.popupInvisible
+{
+    display: none;
 }
 
 .chatpfp
