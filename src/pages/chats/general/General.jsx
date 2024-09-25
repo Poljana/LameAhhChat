@@ -1,21 +1,24 @@
 import './General.css'
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { doc, addDoc, collection,
          deleteDoc, getDocs, Timestamp,
           query, orderBy, 
           getDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
-import { IoMdSend, IoIosTrash } from "react-icons/io";
+import { IoMdSend, IoIosTrash, IoMdMore } from "react-icons/io";
 import { onAuthStateChanged } from 'firebase/auth';
 import { format } from 'date-fns';
 
 
 const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId }) => {
     const [userData, setUserData] = useState('')
-    const [nestedDocuments, setNestedDocuments] = useState([]);
+    const [nestedDocuments, setNestedDocuments] = useState([])
     const [message, setMessage] = useState('')
     const [currentUserId, setCurrentUserId] = useState('')
     const [profilePictures, setProfilePictures] = useState({})
+    const [popupVisible, setPopupVisible] = useState(false)
+    const [activeMessageId, setActiveMessageId] = useState(null)
+    const chatFieldRef = useRef(null)
 
     useEffect(() => {
         const fetchUserData = async () => {
@@ -73,6 +76,12 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
         return () => unsubscribe()
     }, [])
 
+    useEffect(() => {
+        if (chatFieldRef.current) {
+            chatFieldRef.current.scrollTop = chatFieldRef.current.scrollHeight
+        }
+    }, [nestedDocuments])
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if (message.trim() === '') return
@@ -88,6 +97,19 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
             fetchNestedCollection()
         } catch (error) {
             console.error("Error adding document: ", error)
+        }
+    }
+
+    const handlePopup = async (id) => {
+        try {
+            if (activeMessageId === id) {
+                setPopupVisible(!popupVisible)
+            } else {
+                setActiveMessageId(id)
+                setPopupVisible(true)
+            }
+        } catch (error) {
+            console.error("Error handling popup message.", error)
         }
     }
 
@@ -140,9 +162,20 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
                             className={`chatpfp ${messages[0].sentBy === currentUserId ? 'pfp-right' : 'pfp-left'}`}
                         />
                         {doc.sentBy === currentUserId && (
-                            <button onClick={() => handleDelete(doc.id)} className='deleteButton'>
+                            {/* <button onClick={() => handleDelete(doc.id)} className='deleteButton'>
                                 <IoIosTrash />
-                            </button>
+                            </button> */},
+                            <>
+                                <button className="more-options" onClick={() => handlePopup(doc.id)}>
+                                    <IoMdMore />
+                                </button>
+                                {popupVisible && activeMessageId === doc.id && (
+                                    <div className="delete-popup popupVisible">
+                                        <p>If you delete the message it will be gone forever.</p>
+                                    </div>
+                                )}
+                            </>
+                            
                         )}
                     </div>
                 ))}
@@ -152,7 +185,7 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
 
     return (
         <div className='generalChat'>
-            <div className='chatField'>
+            <div className='chatField' ref={chatFieldRef}>
                 {groupedMessages.map((group, index) => (
                         <MessageGroup key={index} messages={group} currentUserId={currentUserId} />
                 ))}
