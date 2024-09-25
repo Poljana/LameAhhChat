@@ -49,7 +49,7 @@ function Profile({ userId }) {
             const docRef = doc(db, "users", userId)
             await updateDoc(docRef, {
                 username: newUsername
-            })
+            })            
             setUserData(prevData => ({ ...prevData, username: newUsername }))
             setEditUsername(false)
         } catch (error) {
@@ -69,6 +69,7 @@ function Profile({ userId }) {
                 await updateDoc(docRef, {
                     email: newEmail
                 })
+                await userId.updateEmail(newEmail)
                 setUserData(prevData => ({ ...prevData, email: newEmail }))
                 setEditEmail(false)
             } else {
