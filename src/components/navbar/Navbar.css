@@ -157,3 +157,28 @@ nav ul li:nth-child(1)
     aspect-ratio: 1/1;
     object-fit: cover;
 }
+
+@media screen and (max-width: 500px) {
+    nav ul
+    {
+        padding-inline: 0;
+        
+    }
+
+    nav ul li:nth-child(1) 
+    {
+        font-size: 15px;
+        gap: 0;
+    }
+
+    .signoutbtn,
+    #signinbtn
+    {
+        font-size: 15px;
+    }
+
+    #profilebtn p
+    {
+        display: none;
+    }    
+}

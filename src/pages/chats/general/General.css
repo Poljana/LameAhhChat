@@ -225,3 +225,32 @@
     left: -2.5rem;
     bottom: 0;
 }
+
+@media screen and (max-width: 500px) {
+    .messageArea
+    {
+        width: 90%;
+        padding-inline: 5%;
+    }
+
+    .chatField
+    {
+        width: 90%;
+        padding-inline: 5%;
+    }
+
+    .messages
+    {
+        max-width: 80%;
+    }
+
+    .message-left
+    {
+        margin-left: 2.5rem;
+    }
+
+    .message-right
+    {
+        margin-right: 2.5rem;
+    }
+}
