@@ -10,6 +10,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import Drawer from '../components/drawer/Drawer.jsx'
 import General from '../pages/chats/general/General.jsx'
 import Profile from '../pages/profile/Profile.jsx'
+import VerificationMail from '../pages/verification_mail/Verification.jsx'
 
 function App() {
   const [currentUserId, setCurrentUserId] = useState('')
@@ -44,6 +45,7 @@ function App() {
                             userId={currentUserId}
                           />} 
           />
+          <Route path='verification-mail' element={<VerificationMail />} />
         </Routes>
     </div>
   )
