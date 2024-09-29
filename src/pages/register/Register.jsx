@@ -1,10 +1,12 @@
 import './Register.css'
-import { createUserWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, 
+        signOut, 
+        sendEmailVerification 
+        } from 'firebase/auth'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth, db } from '../../firebase'
 import { useState } from 'react'
 import { setDoc, doc } from 'firebase/firestore'
-import { sendEmailVerification } from 'firebase/auth'
 
 function Register() {
     const navigate = useNavigate()
@@ -20,7 +22,7 @@ function Register() {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password)
             const user = userCredential.user
 
-            await user.sendEmailVerification().then(() => {
+            await sendEmailVerification(user).then(() => {
                 console.log('Verification email sent.');
             }).catch((error) => {
                 console.error('Error sending verification email:', error);

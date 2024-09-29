@@ -156,18 +156,24 @@
     background-color: #28a745; 
 }
 
-.deleteButton
+.more-options-popup-button
 {
-    width: 1.5rem;
+    width: fit-content;
     height: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     background: transparent;
     border: none;
-    font-size: 20px;
+    border-radius: 0.2rem;
+    font-size: 15px;
+    padding: 1rem;
 }
 
-.deleteButton:hover
+.more-options-popup-button:hover
 {
     cursor: pointer;
+    background: #ff0000;
 }
 
 .more-options
@@ -186,13 +192,14 @@
     background-color: #292929;
 }
 
-.delete-popup
+.more-options-popup
 {
-    width: 10rem;
+    width: fit-content;
     position: absolute;
     right: -15rem;
     background: #28a745;
-    padding: 1rem;    
+    padding: 0.5rem;  
+    border-radius: 0.25rem;  
 }
 
 .popupVisible

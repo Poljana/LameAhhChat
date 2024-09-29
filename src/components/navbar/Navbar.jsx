@@ -89,7 +89,7 @@ function Navbar({ userId }) {
                                                 src={
                                                     profilePicture ?
                                                     profilePicture :
-                                                    "src\\assets\\defaultPFP.jpg"
+                                                    "/src/assets/defaultPFP.jpg"
                                                     } 
                                                 className='navpfp' 
                                             />

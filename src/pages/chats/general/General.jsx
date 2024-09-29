@@ -162,16 +162,16 @@ const General = ({ outerCollectionName, outerDocId, nestedCollectionName, userId
                             className={`chatpfp ${messages[0].sentBy === currentUserId ? 'pfp-right' : 'pfp-left'}`}
                         />
                         {doc.sentBy === currentUserId && (
-                            {/* <button onClick={() => handleDelete(doc.id)} className='deleteButton'>
-                                <IoIosTrash />
-                            </button> */},
                             <>
                                 <button className="more-options" onClick={() => handlePopup(doc.id)}>
                                     <IoMdMore />
                                 </button>
                                 {popupVisible && activeMessageId === doc.id && (
-                                    <div className="delete-popup popupVisible">
-                                        <p>If you delete the message it will be gone forever.</p>
+                                    <div className="more-options-popup popupVisible">
+                                        <button onClick={() => handleDelete(doc.id)} className='more-options-popup-button'>
+                                            <IoIosTrash />
+                                            <p>Delete message</p>
+                                        </button>
                                     </div>
                                 )}
                             </>

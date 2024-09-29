@@ -1,0 +1,36 @@
+.verification-mail
+{
+    position: relative;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    align-items: start;
+    margin-inline: auto;
+    margin-block: 15%;
+    padding: 4rem;
+    background: #272727;
+}
+
+.to-signin
+{
+    padding: 0.5rem;
+    padding-inline: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    background: #28a745;    
+}
+
+.to-signin:hover
+{
+    background: #51d670;
+}
+
+.all-done
+{
+    position: absolute;
+    font-size: 100px;
+    bottom: 2rem;
+    right: 8rem;
+}
