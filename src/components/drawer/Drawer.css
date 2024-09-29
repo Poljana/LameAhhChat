@@ -15,6 +15,14 @@
     margin-right: 100%;
 }
 
+@media screen and (max-width: 500px) {
+    #mainDrawer
+    {
+        width: 100%;
+        height: fit-content;
+    }
+}
+
 .drawerLink
 {
     width: 100%;
